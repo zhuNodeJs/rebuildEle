@@ -1,2 +1,1 @@
-# rebuildEle
-这是一个vue 实现的eleme项目
+##### vue项目(新重建的仿照vue饿了么官网)
