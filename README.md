@@ -15,4 +15,61 @@ data () {
         }
 }
 ```
-3. 
+3. 获取元素节点
+所有的节点指令修改为ref, 然后通过ref来获取元素节点，如：
+```
+<div ref='testHook'>
+   test
+</div>
+
+...js code
+this.$ref.testHook
+```
+4. 获取子组件并调用子组件的方法：
+```
+<test ref='testHook'></test>
+// 获取方法
+this.$ref.testHook.add(); // 调用test子组件的add方法
+```
+5. 使用emit来发送广播
+vue2.x提供了一套广播机制，即一边发送广播，一边接收广播来执行相应的操作，使用方法如下：
+发送的方法：
+```
+export default {
+        methods: {
+                click() {
+                        Vue.$emit('add', {})
+                }
+        }
+}
+
+那么test组件中就需要监听，需要在created方法里写：
+export default {
+        created() {
+                Vue.$on('add', this.add)
+        },
+        methods: {
+                add() {
+                        this.count++;
+                }
+        }
+}
+```
+6. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
