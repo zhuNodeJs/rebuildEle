@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller = seller></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -22,6 +22,8 @@
 import Header from 'components/header/Header'
 import axios from 'axios'
 
+const ERR_OK = 0; // 判断是接口返回数据是否报错的标识符
+
 export default {
   name: 'App',
   data() {
@@ -35,7 +37,7 @@ export default {
   created() {
     axios.get('/api/seller')
     .then((res) => {
-      if (!res.data.errno) {
+      if (res.data.errno === ERR_OK) {
         this.seller = res.data.data
       }
     })

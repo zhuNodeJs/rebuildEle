@@ -153,11 +153,38 @@ proxyTable: {
 }
 <!-- 使用语句npm run dev重启即可 -->
 ```
-17. 
+17. 单击router-link切换时出现对favicon.ico的请求的解决方法：
+```
 
-
-
-
+```
+18. css loader会把非根路径的url解释成为相对路径，加~前缀才会解释成模块路径。
+```
+@import '~@/common/stylus/mixin'
+```
+19. 当你获取一个数组的对象的长度时，如果控制台发出警告(warning),提示这个数组可能是undefined而无法获取length的值时，可做下列的处理：
+```
+<span>{{this.seller.supports ? this.seller.supports.length + '个' : 0 + '个'}}</span>
+```
+20. 背景的函数的编写(使用2倍屏和3倍屏)
+```
+bg-image($url)
+  background-image url('img/'+$url+'@2x.png')
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3)
+    background-image url('img/'+$url+'@3x.png')
+```
+21. 当遇到字体的文件无法找到的时候时可以使用绝对的地址：
+```
+@font-face
+  font-family: 'sell-icon'
+  src:  url('~@/common/fonts/sell-icon.eot?nowozp')
+  src:  url('~@/common/fonts/sell-icon.eot?nowozp#iefix') format('embedded-opentype'),
+    url('~@/common/fonts/sell-icon.ttf?nowozp') format('truetype'),
+    url('~@/common/fonts/sell-icon.woff?nowozp') format('woff'),
+    url('~@/common/fonts/sell-icon.svg?nowozp#sell-icon') format('svg')
+  font-weight: normal
+  font-style: normal
+```
+22. 
 
 
 
