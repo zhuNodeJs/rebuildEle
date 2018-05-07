@@ -184,10 +184,28 @@ bg-image($url)
   font-weight: normal
   font-style: normal
 ```
-22. 
-
-
-
+22. 设置模糊效果的：
+```
+filter blur(10px)
+<!-- or -->
+blur 10px
+```
+23. 当使用v-for时出现红色的警告，是因为vue2.2.x以上的版本必须加上key:
+```
+<li class="support-item" v-for="(item, index) in seller.supports" :key="index">
+        // ...                
+</li>
+```
+或者将eslint-plugin-vue的配置项由true改为false:
+```
+ "vetur.validation.template": false
+```
+24. star组件的思路：
+ (1). 通过父子组件的传值来控制星星的数量，和星星的规格大小(有三种规格：大号的48--其宽高是20px, 中号的36--其宽高是15, 小号的24--其宽高是10) 
+ (2). 通过computed钩子函数来生成result(一个数组，其中是5个星星的分别的状态，有on, half, off三种状态)
+ (3). 通过css的控制来展示星星，将图片作为背景图
+其中，小数的部分是四舍五入的方法来统计, 要写三套样式来分别进行控制。 
+25. 
 
 
 
