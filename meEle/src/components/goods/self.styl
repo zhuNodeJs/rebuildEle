@@ -1,13 +1,38 @@
 .goods
   .menu-wrapper
+    width: 80px
     & > ul
-      .menu-item
-        font-size 12px
-        color rgb(240, 20, 20)
-        font-weight: 200
-        line-height: 14px
+      display: flex
+      flex-direction: column
+      .muItem
+        height 54px
+        &.menu-item
+          font-size 12px
+          font-weight: 200
+          line-height: 14px
+          background-color #f3f5f7
+        &.menu-item-selected
+          font-size 12px
+          line-height 14px
+          font-weight: 400
+          background-color #ffffff
+        .text
+          display flex
+          flex-direction: row
+          align-items: center
+          width 56px
+          height: 100%
+          margin: 0 auto
+          .iconMap
+            flex 0 0 12px
 
-      .menu-item-selected
-        font-size 12px
-        color rgb(240, 20, 20)
-        line-height 14px
+
+
+
+
+
+
+
+
+
+
