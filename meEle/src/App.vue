@@ -51,6 +51,9 @@ export default {
 <style lang="stylus" scoped>
 @import 'common/stylus/index'
 #app
+  display flex
+  flex-direction column
+  height 100%
   .tab
     display flex
     border-1px(rgba(7, 17, 27, 0.1))

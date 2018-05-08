@@ -205,8 +205,17 @@ blur 10px
  (2). 通过computed钩子函数来生成result(一个数组，其中是5个星星的分别的状态，有on, half, off三种状态)
  (3). 通过css的控制来展示星星，将图片作为背景图
 其中，小数的部分是四舍五入的方法来统计, 要写三套样式来分别进行控制。 
-25. 
-
+25. 商品左侧栏的内容，实现内容图片和字体的左右对齐，上下垂直居中：
+```
+.muItem
+  display table
+  font-weight bold
+  .text
+    display table-cell
+    vertical-align middle
+    padding 0 12px
+```
+26. 
 
 
 

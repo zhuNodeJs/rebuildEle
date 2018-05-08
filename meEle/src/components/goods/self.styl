@@ -1,11 +1,21 @@
 .goods
+  flex: 1
+  display: flex
+  overflow hidden
   .menu-wrapper
+    flex: 0 0 80px
     width: 80px
+    box-sizing: content-box
+    padding-bottom 30px
+    background-color #f3f5f7
+    margin-top 2px
     & > ul
       display: flex
       flex-direction: column
       .muItem
         height 54px
+        display table
+        position relative
         &.menu-item
           font-size 12px
           font-weight: 200
@@ -16,22 +26,85 @@
           line-height 14px
           font-weight: 400
           background-color #ffffff
+          .text
+            font-weight: bold
         .text
-          display flex
-          flex-direction: row
-          align-items: center
-          width 56px
-          height: 100%
-          margin: 0 auto
+          display table-cell
+          vertical-align: middle
+          padding 0 12px
           .iconMap
             flex 0 0 12px
-
-
-
-
-
-
-
+        &:after
+          content: ''
+          width: 90%
+          height 1px
+          position absolute
+          background rgba(7, 17, 27, 0.1)
+          z-index 99
+          bottom 0
+          left 50%
+          transform translateX(-50%)
+  .foods-wrapper
+    flex: 1
+    margin-top: 2px
+    & > ul
+      .food-list
+        & > h1
+          height 26px
+          font-size: 12px
+          line-height: 26px
+          color: rgb(147, 153, 159)
+          background-color #f3f5f7
+          border-left 2px solid #d9dde1
+          padding-left 12px
+        & > ul
+          padding 18px 18px 0 18px
+          .food-item
+            display flex
+            flex-direction row
+            padding 18px 0
+            border-bottom 1px solid rgba(7, 17, 27, 0.1)
+            &:first-child
+              padding-top: 0
+            &:last-child
+              border-bottom none
+            .icon
+              flex 0 0 57px
+              height 57px
+              margin-right 10px
+            .content
+              flex: 1
+              & > h2
+                font-size 14px
+                color rgb(7, 17, 27)
+                line-height 14px
+                box-sizing content-box
+                padding-top 2px
+              .description
+                font-size 10px
+                color rgb(147, 153, 159)
+                line-height 10px
+                padding-top 8px
+              .sell-info
+                font-size 10px
+                color rgb(147, 153, 159)
+                line-height 10px
+                padding-top 8px
+                display flex
+                flex-direction row
+                .rating
+                  margin-left 12px
+              .price
+                .newPrice
+                  color rgb(240, 20, 20)
+                  font-weight 700
+                  font-size 14px
+                .oldPrice
+                  text-decoration line-through
+                  font-size 10px
+                  color rgb(147, 153, 159)
+                  line-height 24px
+                  font-weight 700
 
 
 
