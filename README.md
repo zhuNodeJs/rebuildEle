@@ -215,8 +215,55 @@ blur 10px
     vertical-align middle
     padding 0 12px
 ```
-26. 
-
+26. 商城左右联动的主体的构造思想 (最重要的是页面的布局要正确，better-scroll是给第一个子元素添加滑动效果，并且只有当子元素超过父元素的时候，才会允许滑动)：
+ (1). 首先在初始化获取数据的同时，即在Dom渲染完毕后，立刻添加获取数据，获取数据之后立刻使用this.$nextTick(()=>{})来添加better-scroll滑动并初始化，并添加监控获取foods获取滑动的距离：
+ ```
+ this.foodsScroll.on('scroll', (pos) => {
+         this.foodsScrollY = Math.abs(Math.round(pos.y)) // 获取滑动距离的绝对值
+ })
+ ```
+ (2). 在初始化之后，获取每个选项距离顶端的数组：
+ ```
+ _calculateHeight() {
+         let foodList = this.$refs.foodsWrapper.querySelectorAll('.food-list-hook');
+         let height = 0
+         this.listHeight.push(height)
+         for(let i = 0, len = foodList.length; i < len; i++) {
+             let item = foodList[i]
+             height += item.clientHeight
+             this.listHeight.push(height)    
+         }
+ }
+ ``` 
+  (3). 滑动右侧列表的，通过滑动的距离，来查看这个数组实时在处在this.listHeight的区间，然后获取当前的index, 通过计算属性可以实时的获取计算index(动态属性):
+ ```
+ computed: {
+    menuCurrentIndex() {
+        for(let i = 0, len = this.listHeight.length; i < len; i++) {
+                const topHeight = this.listHeight[i]
+                const bottomHeight = this.listHeight[i+1]
+                if(!this.listHeight[i+1] || (this.foodsScrollY >= topHeight && this.foodsScrollY < bottomHeight>)) {
+                        return i;
+                }
+        }
+        return 0;    
+    }     
+ }
+ ``` 
+ (4). 单击左侧的列表，右侧的列表滑动的相应的位置：
+ ```
+ menuClick(index, event) {
+         if(!event._constructed) {
+                 return
+         }
+         this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
+ }
+ ``` 
+27. 单击阻止默认事件：
+```
+@click.stop.prevent='addCart($event)'
+```
+28. 
 
 
 

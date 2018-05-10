@@ -1,0 +1,83 @@
+@import '~@/common/stylus/index'
+.shopCartContent
+  .shopCart
+    height 48px
+    .content
+      display flex
+      flex-direction row
+      background #141d27
+      .content-left
+        flex 1
+        display: flex
+        flex-direction row
+        align-items: center
+        .logo-wrapper
+          display inline-block
+          width 56px
+          height 56px
+          position relative
+          line-height 56px
+          border-radius 50%
+          background-color #141d27
+          margin 0 12px
+          box-sizing border-box
+          text-align: center
+          top -10px
+          padding 6px
+          .badge
+            position absolute
+            top: 0
+            right: 0
+            background #f01414
+            color #ffffff
+            height 16px
+            font-size 9px
+            line-height: 16px
+            font-weight: 700
+            border-radius: 10px
+            text-align: center
+            box-sizing: content-box
+            padding 0 8px
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,.4)
+          .logo
+            width 100%
+            height 100%
+            background #2b343c
+            border-radius 50%
+            font-size 24px
+            color #80858a
+            line-height 44px
+            font-weight 700
+            &.active
+              background #00a0dc
+              color #ffffff
+        .price
+          display inline-block
+          vertical-align: top
+          font-size: 16px
+          height 50%
+          padding-right 12px
+          box-sizing: border-box
+          font-weight: 700
+          line-height: 24px
+          color rgba(255, 255, 255, .4)
+          border-right: 1px solid hsla(0, 0%, 100%, .1)
+        .desc
+          font-size: 13px
+          color rgba(255, 255, 255, .4)
+          font-weight: 700
+          margin 0 auto
+          margin-top -5px
+      .content-right
+        flex 0 0 105px
+        font-size 12px
+        font-weight: 700
+        background #2b343c
+        color rgba(255, 255, 255, 0.4)
+        line-height 48px
+        text-align center
+
+
+
+
+

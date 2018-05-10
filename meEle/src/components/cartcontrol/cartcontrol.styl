@@ -1,0 +1,31 @@
+@import '~@/common/stylus/index'
+.cartcontrol
+  display flex
+  flex-direction row
+  align-items: center
+  .cart-decrease
+    font-size: 24px
+    color rgb(0, 160, 220)
+    transition: all 0.4s linear
+    .inner
+      font-size: 24px
+      color rgb(0, 160, 220)
+      transition: all 0.4s linear
+    &.fadeRotate-enter-active, &.fadeRotate-leave-active
+      opacity 1
+      transform translate3d(0, 0, 0)
+      .inner
+        display inline-block
+        transform: rotate(0deg)
+    &.fadeRotate-enter, &.fadeRotate-leave-active
+      opacity 0
+      transform: translate3d(24px, 0, 0)
+      .inner
+        transform rotate(180deg)
+  .cart-count
+    font-size: 10px
+    color rgb(147, 153, 159)
+    margin 0 12px
+  .cart-add
+    font-size: 24px
+    color rgb(0, 160, 220)
