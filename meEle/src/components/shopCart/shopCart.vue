@@ -1,7 +1,6 @@
 <template>
   <div class="shopCartContent">
     <div class="shopCart">
-
      <div class="content">
        <div class="content-left">
          <div class="logo-wrapper">
@@ -41,9 +40,9 @@
         default: 0
       }
     },
-    data: function() {
-      return {
-        totalCount: 1
+    computed: {
+      totalCount: function() {
+        return this.$store.state.count;
       }
     }
   }
