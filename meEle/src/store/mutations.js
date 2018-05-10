@@ -20,11 +20,8 @@ export default {
    },
    deFoodFromCar(state, oFood) {
     state.selectedFoods.forEach((selectSingleFood, index) => {
-      if (selectSingleFood.name === oFood.name) {
-        selectSingleFood.count--
-        if (!selectSingleFood.count) {
-          state.selectedFoods.splice(index, 1)
-        }
+      if (!selectSingleFood.count && selectSingleFood.name === oFood.name) {
+        state.selectedFoods.splice(index, 1)
       }
     })
     console.log(state.selectedFoods)

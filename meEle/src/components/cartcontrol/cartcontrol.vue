@@ -42,7 +42,7 @@ import Vue from 'vue'
         }
         this.food.count--
         this.$store.commit('decrease')
-        this.$store.commit('deFoodFromCar')
+        this.$store.commit('deFoodFromCar', this.food)
       }
     }
   }
