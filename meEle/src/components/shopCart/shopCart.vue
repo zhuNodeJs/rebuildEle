@@ -11,15 +11,15 @@
              <i class="icon-shopping_cart"></i>
            </div>
          </div>
-         <div class="price">
+         <div class="price" :class="{'active': totalPrice}">
            ￥{{totalPrice}}
          </div>
          <div class="desc">
            另需要配送费 ￥{{deliveryPrice}} 元
          </div>
        </div>
-       <div class="content-right">
-          ￥20元起送
+       <div class="content-right" :class="{'enough': totalPrice >= minPrice}">
+          {{payDesc}}
        </div>
      </div>
      <!-- <div class="ball-container">
@@ -34,20 +34,20 @@
        </transition>
      </div> -->
      <transition name="transHeight">
-       <div class="shopCart-list" v-show="listShow">
+       <div class="shopCart-list">
          <div class="list-header">
-           <h1>购物车</h1>
+           <h1 class="title">购物车</h1>
            <span class="empty">清空</span>
          </div>
          <div class="list-content" ref="foodlist">
            <ul>
-             <li class="food" v-for="(food, index) in selectedFoods" :key="index">
+             <li class="food" v-for="(food, index) in selectFoods" :key="index">
                <span class="name">链子核桃黑米粥</span>
                <div class="price">
                  <span>￥20</span>
                </div>
                <div class="cartcontrol-wrapper">
-                <!-- <cartcontrol></cartcontrol> -->
+                <cartcontrol :food='food'></cartcontrol> 
                </div>
              </li>
            </ul>
@@ -55,9 +55,9 @@
        </div>
      </transition>
     </div>
-    <!-- <transition name="fade-backdrop">
-      <div class="backdrop" v-show="showBackdrop" @click="hideBackdrop"></div>
-    </transition> -->
+    <transition name="fade-backdrop">
+      <div class="backdrop"></div>
+    </transition>
   </div>
 </template>
 
@@ -85,14 +85,24 @@ import cartcontrol from '@/components/cartcontrol/cartcontrol'
       },
       totalPrice() {
         let sum = 0
-        if (this.$store.state.selectedFoods.length > 0) {
-          this.$store.state.selectedFoods.forEach(food => {
+        if (this.selectFoods.length > 0) {
+          this.selectFoods.forEach(food => {
               sum += food.count * food.price
           });
         } else {
           sum = 0
         }
         return sum
+      },
+      payDesc() {
+        let diff = this.minPrice - this.totalPrice
+        if (!this.totalPrice) {
+          return `￥${this.minPrice}起送`
+        } else if(diff > 0) {
+          return `还差￥${diff}元`
+        } else {
+          return '去结算'
+        }
       }
     },
     components: {
