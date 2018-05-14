@@ -7,12 +7,12 @@
            <div class="badge" v-show="totalCount">
               {{totalCount}}
            </div>
-           <div class="logo" :class="{'active': totalCount}">
+           <div class="logo" :class="{'active': totalPrice}">
              <i class="icon-shopping_cart"></i>
            </div>
          </div>
          <div class="price">
-           ￥0
+           ￥{{totalPrice}}
          </div>
          <div class="desc">
            另需要配送费 ￥{{deliveryPrice}} 元
@@ -78,7 +78,21 @@ import cartcontrol from '@/components/cartcontrol/cartcontrol'
     },
     computed: {
       totalCount: function() {
-        return this.$store.state.count;
+        return this.$store.state.count
+      },
+      selectFoods: function() {
+        return this.$store.state.selectedFoods
+      },
+      totalPrice() {
+        let sum = 0
+        if (this.$store.state.selectedFoods.length > 0) {
+          this.$store.state.selectedFoods.forEach(food => {
+              sum += food.count * food.price
+          });
+        } else {
+          sum = 0
+        }
+        return sum
       }
     },
     components: {
