@@ -25,7 +25,6 @@ import Vue from 'vue'
     },
     methods: {
       addCart(event) {
-        // console.log(event.target)
         if (!event._constructed) {
           return
         }

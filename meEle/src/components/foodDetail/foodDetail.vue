@@ -35,10 +35,31 @@
           </div>
           <div class="classify">
             <span v-for="(item, index) in classifyArr" :key="index" class="item"
-            :class="{'active': item.active, 'bad': index == 2, 'badActive': item.active&&index==2}"
+            :class="{'active': item.active, 'bad': index == 2, 'badActive': item.active && index==2}"
             @click="filterEvel(item)">
               {{item.name}}<span class="count">{{item.count}}</span>
             </span>
+          </div>
+          <div class="switch" @click="evelflag = !evelflag">
+             <span class="icon-check_circle" :class="{'on': evelflag}"></span>
+             <span class="text">只看有内容的评价</span>
+          </div>
+          <div class="evel-list">
+            <ul>
+              <li class="evel" v-for="(evel, index) in evelArr" :key="index">
+                <div class="userInfo">
+                  <div class="time">{{evel.rateTime | time}}</div>
+                  <div class="user">
+                    <span>{{evel.username}}</span>
+                    <span class="avatar"><img :src="evel.avatar" width="12" height="12"></span>
+                  </div>
+                </div>
+                <div class="content">
+                  <span class="icon" :class="evel.rateType ? 'icon-thumb_down' : 'icon-thumb_up'"></span>
+                  <span class="text">{{evel.text}}</span>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -49,6 +70,9 @@
 <script>
 import cartcontrol from 'components/cartcontrol/cartcontrol'
 import BScroll from 'better-scroll'
+import time from '@/filter/time'
+import index from 'axios';
+import Vue from 'vue'
 
   export default {
     name: 'foodDetail',
@@ -59,7 +83,7 @@ import BScroll from 'better-scroll'
     },
     data: function() {
       return {
-        showDetail: true,
+        showDetail: false,
         classifyArr: [
           {
             name: '全部',
@@ -76,7 +100,40 @@ import BScroll from 'better-scroll'
             count: this.food.ratings.filter((rating) => rating.rateType).length,
             active: false
           }
-        ]
+        ],
+        evelflag: false
+      }
+    },
+    computed: {
+      evelArr() {
+        let ratings = this.food.ratings
+        let selectedIndex = 0
+        let returnValue = []
+        this.classifyArr.forEach((data, index) => {
+          if (data.active) {
+            selectedIndex = index
+          }
+        })
+
+        if (this.detailWrapper) {
+          this.$nextTick(() => {
+            this.detailWrapper.refresh()
+          })
+        }
+
+        if (!selectedIndex) {
+          returnValue = ratings
+        } else if (selectedIndex === 1) {
+          returnValue = ratings.filter((item) => !item.rateType)
+        } else if (selectedIndex === 2) {
+          returnValue = ratings.filter((item) => !!item.rateType)
+        }
+
+        if (returnValue.length > 0 && this.evelflag) {
+          returnValue = returnValue.filter((item) => item.text && item.text.length > 0)
+        }
+
+        return returnValue;
       }
     },
     methods: {
@@ -96,15 +153,22 @@ import BScroll from 'better-scroll'
         } else {
           this.scroll.refresh()
         }
+      },
+      filterEvel(item) {
+        this.classifyArr.forEach((data) => {
+          data.active = false
+        });
+        item.active = true
+      },
+      addCart(event) {
+        if (!this.food.count) {
+          Vue.set(this.food, 'count', 0)
+        }
+        this.food.count++
       }
     },
     components: {
       cartcontrol
-    },
-    mounted() {
-      setTimeout(() => {
-        this._initScroll()
-      }, 20);
     }
   }
 </script>

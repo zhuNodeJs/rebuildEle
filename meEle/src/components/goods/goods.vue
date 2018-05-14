@@ -46,7 +46,7 @@
     </div>
 
     <shopCart :deliveryPrice='seller.deliveryPrice' :minPrice='seller.minPrice'></shopCart>
-    <foodDetail :food='selectedFood' ng-if='true' ref="myFood"></foodDetail>
+    <foodDetail :food='selectedFood' ng-if='selectedFood' ref="myFood"></foodDetail>
   </div>
 </template>
 
@@ -71,40 +71,7 @@
         goods: [],
         foodsScrollY: 0,
         listHeight: [], // 储存各个右侧各个类别距离顶部的距离
-        selectedFood: {
-          "name": "皮蛋瘦肉粥",
-          "price": 10,
-          "oldPrice": "",
-          "description": "咸粥",
-          "sellCount": 229,
-          "rating": 100,
-          "info": "一碗皮蛋瘦肉粥，总是我到粥店时的不二之选。香浓软滑，饱腹暖心，皮蛋的Q弹与瘦肉的滑嫩伴着粥香溢于满口，让人喝这样的一碗粥也觉得心满意足",
-          "ratings": [
-            {
-              "username": "3******c",
-              "rateTime": 1469281964000,
-              "rateType": 0,
-              "text": "很喜欢的粥",
-              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
-            },
-            {
-              "username": "2******3",
-              "rateTime": 1469271264000,
-              "rateType": 0,
-              "text": "",
-              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
-            },
-            {
-              "username": "3******b",
-              "rateTime": 1469261964000,
-              "rateType": 1,
-              "text": "",
-              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
-            }
-          ],
-          "icon": "http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/114/h/114",
-          "image": "http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750"
-        }
+        selectedFood: {}
       }
     },
     created() {
@@ -182,13 +149,9 @@
       },
       goDetail(food) {
         this.selectedFood = food
-        console.log(food)
         this.$nextTick(() => {
-          // this.$refs.myFood
+          this.$refs.myFood.showToggle()
         })
-      },
-      created() {
-        // this.selectedFood =
       }
     }
   }

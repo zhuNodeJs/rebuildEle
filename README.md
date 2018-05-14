@@ -263,9 +263,25 @@ blur 10px
 ```
 @click.stop.prevent='addCart($event)'
 ```
-28. 
+28. 过滤器和时间的处理库moment.js
+```
+import Vue from 'vue'
+import moment from 'moment'
 
-
+Vue.filter('time', function(value, formatString) {
+  formatString = formatString || 'YYYY-MM-DD HH:mm'
+  return moment(value).format(formatString)
+})
+```
+在需要使用的组件中使用：
+```
+import time from '@/filter/time'
+```
+29. 设置一个对象的属性并赋值：
+```
+Vue.set(this.food, 'count', 0)
+```
+30. 
 
 
 
