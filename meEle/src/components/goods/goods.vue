@@ -46,7 +46,7 @@
     </div>
 
     <shopCart :deliveryPrice='seller.deliveryPrice' :minPrice='seller.minPrice'></shopCart>
-    <foodDetail :food='selectedFood' ng-if='selectedFood' ref="myFood"></foodDetail>
+    <foodDetail v-bind:food='selectedFood' v-if='selectedFood' ref="myFood"></foodDetail>
   </div>
 </template>
 
@@ -71,7 +71,7 @@
         goods: [],
         foodsScrollY: 0,
         listHeight: [], // 储存各个右侧各个类别距离顶部的距离
-        selectedFood: {}
+        selectedFood: ''
       }
     },
     created() {
@@ -88,7 +88,6 @@
       .catch((err) => {
         console.log('接口报错信息: ')
       })
-
     },
     components: {
       iconMap,
@@ -107,7 +106,7 @@
              return i;
            }
         }
-        return 0;
+        return 0
       }
     },
     methods: {

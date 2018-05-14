@@ -71,7 +71,6 @@
 import cartcontrol from 'components/cartcontrol/cartcontrol'
 import BScroll from 'better-scroll'
 import time from '@/filter/time'
-import index from 'axios';
 import Vue from 'vue'
 
   export default {
