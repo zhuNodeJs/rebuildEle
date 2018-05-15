@@ -281,8 +281,31 @@ import time from '@/filter/time'
 ```
 Vue.set(this.food, 'count', 0)
 ```
-30. 
+30. 设置背景：
+```
+     -webkit-backdrop-filter: blur(10px)
+      backdrop-filter: blur(10px)
+```
+31. 关于小球动画的一些问题的解释
+(1). offsetHeight触发重绘
 
+因为浏览器引擎对重拍和重绘做了优化，比如说原生的改变达到了一定的次数的才会发生，那想要立刻获得准确的DOM元素，就要手动的触发浏览器重绘，有很多的方法都可以触发，比如:offsetHeight, offsetTop, offsetLeft, offsetWidth,ScrollTop,scrollLeft,scrollWidth等等都是可以的。
+
+(2). dropballs 
+dropballs是用来存已经显示过动画的小球，这样就可以直接unshift取到值，当然也可以不用这个，直接for循环balls数组判断状态为falsh的数组再改变状态
+
+(3). balls数组里面为什么要存五个小球
+在连续点击的情况下小球动画也可以显示多个，也就是说可以同时飞多个小球，这里的小球飞入的动画时间是400ms, 如果只有一个小球，那么只能在第一个小球动画飞入之后也就是400ms之后才能显示另一个小球，但是400ms的时间足够我们单击很多次的了，这样就会造成视觉上的误差
+
+(4). 小球动画是怎么做的呢
+使用css3属性贝塞尔曲线
+购物车的坐标点是固定的，可以根据css的px值计算获得。
+
+32. getBoundingClientRect() 简介
+获得元素的：bottom, height, left, right, top, width, x ,y
+el.offsetHeight:触发页面的重绘
+
+33. 
 
 
 

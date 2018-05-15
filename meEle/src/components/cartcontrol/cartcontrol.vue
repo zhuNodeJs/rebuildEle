@@ -34,6 +34,7 @@ import Vue from 'vue'
         this.food.count++
         this.$store.commit('increment')
         this.$store.commit('addFoodToCar', this.food)
+        this.$root.eventHub.$emit('cart.add', event.target)
       },
       decreaseCart() {
         if(!event._constructed || !this.food.count) {
