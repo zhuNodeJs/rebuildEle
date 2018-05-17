@@ -3,24 +3,24 @@
     <div class="ratings-content">
       <div class="info">
         <div class="mark">
-          <div class="num">3.9</div>
+          <div class="num">{{seller.score}}</div>
           <div class="text">综合评分</div>
-          <div class="contrast">高于周边商家69.2%</div>
+          <div class="contrast">高于周边商家{{seller.rankRate}}%</div>
         </div>
         <div class="stars">
           <div class="serviceScore">
             <span class="text">服务态度</span>
-            <star :size='36' score='3.9'></star>
-            <span class='num'>3.9</span>
+            <star :size='36' :score='seller.serviceScore'></star>
+            <span class='num'>{{seller.serviceScore}}</span>
           </div>
           <div class="foodScore">
             <span class="text">服务态度</span>
-            <star :size='36' score='4.0'></star>
-            <span class="num">4.0</span>
+            <star :size='36' :score='seller.foodScore'></star>
+            <span class="num">{{seller.foodScore}}</span>
           </div>
           <div class="deliveryTime">
             <span class="text">送达时间</span>
-            <span class="time">44分钟</span>
+            <span class="time">{{seller.deliveryTime}}分钟</span>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="star-wrapper">
                   <star :size='24' :score='evel.score'></star>
-                  <span class="deliveryTime">{{evel.deliveryTime}}分钟送达</span>
+                  <span class="deliveryTime" v-if='evel.deliveryTime'>{{evel.deliveryTime}}分钟送达</span>
                 </div>
                 <div class="text">
                   {{evel.text}}
@@ -74,44 +74,86 @@ import axios from 'axios'
 import BScroll from 'better-scroll'
   export default {
     name: 'ratings',
+    created: function() {
+      this._initData()
+    },
     data: function() {
       return {
         evelflag: false,
+        ratings: [],
+        seller: {},
         classifyArr: [
           {
             name: '全部',
-            count: 57,
+            count: 0,
             active: true
           },
           {
             name: '满意',
-            count: 47,
+            count: 0,
             active: false
           },
           {
             name: '不满意',
-            count: 10,
+            count: 0,
             active: false
           }
-        ],
-        evelArr: [
-          {
-            "username": "3******c",
-            "rateTime": 1469281964000,
-            "deliveryTime": 30,
-            "score": 5,
-            "rateType": 0,
-            "text": "不错,粥很好喝,我经常吃这一家,非常赞,以后也会常来吃,强烈推荐.",
-            "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
-            "recommend": [
-              "南瓜粥",
-              "皮蛋瘦肉粥",
-              "扁豆焖面",
-              "娃娃菜炖豆腐",
-              "牛肉馅饼"
-            ]
-          }
         ]
+      }
+    },
+    computed: {
+      evelArr() {
+        let ratings = this.ratings
+        let selectedIndex = 0
+        let returnValue =[]
+        this.classifyArr.forEach((data, index) => {
+          if (data.active) {
+            selectedIndex = index
+          }
+          if (!index) {
+            data.count = ratings.length
+          } else {
+            data.count = ratings.filter((item) => item.rateType === index - 1).length
+          }
+        })
+
+        if (!selectedIndex) {
+          returnValue = ratings
+        } else if (selectedIndex === 1) {
+          returnValue = ratings.filter((item) => !item.rateType)
+        } else if (selectedIndex === 2) {
+          returnValue = ratings.filter((item) => !!item.rateType)
+        }
+
+        if (returnValue.length > 0 && this.evelflag) {
+          returnValue = returnValue.filter((item) => item.text && item.text.length > 0)
+        }
+
+        return returnValue
+      }
+    },
+    methods: {
+      _initData() {
+        axios.all([
+          axios.get('/api/seller'),
+          axios.get('/api/ratings')
+        ])
+        .then(axios.spread((userResp, reposResp) => {
+          this.seller = userResp.data.data
+          this.ratings = reposResp.data.data
+        }))
+
+        this.$nextTick(() => {
+          this.ratingsWrapperScroll = new BScroll(this.$refs.ratingsWrapper, {
+            click: true
+          })
+        })
+      },
+      filterEvel(item) {
+        this.classifyArr.forEach(data => {
+           data.active = false
+        })
+        item.active = true
       }
     },
     components: {

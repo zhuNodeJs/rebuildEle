@@ -305,9 +305,16 @@ dropballs是用来存已经显示过动画的小球，这样就可以直接unshi
 获得元素的：bottom, height, left, right, top, width, x ,y
 el.offsetHeight:触发页面的重绘
 
-33. 
+33. 注意对于数据的操作要放在获得数据之后。foodDetail组件的数据是通过传值来获取的，
+而ratings组件是通过接口来获取的，是属于异步的操作，此时要特别的注意操作数据的步骤。
 
-
-
-
-
+34.  防止标题上移：
+```
+.ratingsWrapper
+  position: absolute
+  top 174px
+  left 0
+  bottom: 0
+  right 0
+  overflow hidden
+```
